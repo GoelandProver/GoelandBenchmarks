@@ -1,3 +1,4 @@
 [submodule "Goeland"]
 	path = Goeland
 	url = https://github.com/GoelandProver/Goeland.git
+	branch = master
