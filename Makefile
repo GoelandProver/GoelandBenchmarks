@@ -1,12 +1,12 @@
-RESULTS=RESULTS/
+RESULTS=result
 SYN=SYN/
 SET=SET/
 TIMEOUT=300
+GOELAND=./Goeland/src
 
-all: build test
-
-build:
-	cd ../src && make && cd ../tests
+all: 
+	git submodule update --init --recursive
+	cd $(GOELAND) && make
 
 test:
 	python3 run_tests.py $(SYN) $(RESULTS) $(TIMEOUT)

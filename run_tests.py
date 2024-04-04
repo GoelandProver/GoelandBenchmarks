@@ -49,7 +49,7 @@ def LaunchTest(prover_name, command_line, succes, memory_limit=None, failure=Non
         print("--------------------------------------------------")
 
 if len(sys.argv) != 4: 
-    print("python3 run_tests problem_folder output_foler timeout")
+    print("python3 run_tests.py problem_folder prefix timeout")
 else:
     folder = sys.argv[1]
     folder_split = folder.split("/")
@@ -57,7 +57,7 @@ else:
     now = datetime.now()
     current_day = today.strftime("%b-%d-%Y")
     current_time = now.strftime("%H:%M:%S")
-    filename = sys.argv[2]+("stats_%s_%s_%s.csv" % (folder_split[len(folder_split)-2], current_day, current_time))
+    filename = sys.argv[2]+("_stats_%s_%s_%s.csv" % (folder_split[len(folder_split)-2], current_day, current_time))
     f = open(filename, "w", buffering=1)
     f.write("File_name; Goéland - Time; Goéland - Result; Goéland+DMT - Time; Goéland+DMT - Result\n")
    
@@ -71,10 +71,10 @@ else:
         f.write(";")
 
         # Goéland
-        LaunchTest("Goéland", "timeout "+timeout+" ../src/_build/goeland -preventLoad dmt "+folder+file, "VALID", None, "NOT VALID")
+        LaunchTest("Goéland", "timeout "+timeout+" ./Goeland/src/_build/goeland "+folder+file, "VALID", None, "NOT VALID")
         
         # Goéland - DMT
-        LaunchTest("Goéland+DMT", "timeout "+timeout+" ../src/_build/goeland "+folder+file, "VALID", None, "NOT VALID")
+        LaunchTest("Goéland+DMT", "timeout "+timeout+" ./Goeland/src/_build/goeland -dmt "+folder+file, "VALID", None, "NOT VALID")
 
         f.write("\n")
 
